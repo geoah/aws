@@ -1,6 +1,6 @@
 # GitHub Actions for Amazon EKS Authentication with kubectl
 
-This Action for [Amazon Elastic Container Service for Kubernetes (Amazon EKS)](https://aws.amazon.com/) that saves a [kubectl config](https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/) with AWS credentials and warps the [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) command.
+This Action for [Amazon Elastic Container Service for Kubernetes (Amazon EKS)](https://aws.amazon.com/eks/) that saves a [kubectl config](https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/) with AWS credentials and wraps the [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) command.
 
 ## Usage
 
@@ -14,7 +14,7 @@ workflow "Build and Deploy" {
 action "Deploy to EKS" {
   needs = ["Build and Push Containers"]
   uses = "actions/aws/kubectl@master"
-  args = ["kubectl apply -f config.yml"]
+  args = ["apply -f config.yml"]
   secrets = ["KUBE_CONFIG_DATA"]
 }
 
@@ -28,7 +28,7 @@ action "Verify EKS Deployment" {
 
 ### Secrets
 
-- `KUBE_CONFIG_DATA` – **Required** A base64-encoded `kubectl config` file with credentials for Kubernetes to access the cluster. Example encoding from terminal : `cat $HOME/.kube/config | base64`. **Note** Do not use `kubectl config view` as this will hide the `certificate-authority-data`.  
+- `KUBE_CONFIG_DATA` – **Required** A base64-encoded `kubectl config` file with credentials for Kubernetes to access the cluster. Example encoding from terminal : `cat $HOME/.kube/config | base64`. **Note** Do not use `kubectl config view` as this will hide the `certificate-authority-data`.
 
 
 ## License
